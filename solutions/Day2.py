@@ -45,7 +45,7 @@ def process_input(input_):
 
 if __name__ == "__main__":
     with open('../inputs/Day2.txt','r') as f:
-        pass_policies = process_input(f.readlines())
+        pass_policies = process_input([line.rstrip() for line in f])
 
     print("Part 1:", part1(pass_policies))
     print("Part2 2:", part2(pass_policies))

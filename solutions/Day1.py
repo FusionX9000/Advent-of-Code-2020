@@ -28,6 +28,6 @@ def process_input(input_):
 
 if __name__ == "__main__":
     with open('../inputs/Day1.txt','r') as f:
-        nums = process_input(f.readlines())
+        nums = process_input([line.rstrip() for line in f])
     print("Part 1: ", part1(nums))
     print("Part 2: ", part2(nums))
