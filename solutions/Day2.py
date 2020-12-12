@@ -2,7 +2,7 @@ import re
 from collections import namedtuple
 
 def part1(pass_policies):
-    def isValid(password, policy):
+    def is_valid(password, policy):
         count = 0
         for char in password:
             if char==policy.char:
@@ -17,12 +17,12 @@ def part1(pass_policies):
     for password, policy_tuple in pass_policies:
         minCount, maxCount, char = policy_tuple
         policy = Policy(minCount, maxCount, char)
-        if isValid(password, policy):
+        if is_valid(password, policy):
             ans+=1
     return ans
 
 def part2(pass_policies):
-    def isValid(password, policy):
+    def is_valid(password, policy):
         return (password[pos1-1]==policy.char)^(password[pos2-1]==policy.char)
 
     ans=0
@@ -31,7 +31,7 @@ def part2(pass_policies):
     for password, policy_tuple in pass_policies:
         pos1, pos2, char = policy_tuple
         policy = Policy(pos1, pos2, char)
-        if isValid(password, policy):
+        if is_valid(password, policy):
             ans+=1
     return ans
 

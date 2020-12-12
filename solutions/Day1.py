@@ -14,10 +14,10 @@ def part2(nums):
     for i in range(0, len(nums)):
         l,r = 0, len(nums)-1
         while(l<i and i<r):
-            threeSum = sum((nums[i],nums[l],nums[r]))
-            if(threeSum>2020):
+            three_sum = sum((nums[i],nums[l],nums[r]))
+            if(three_sum>2020):
                 r-=1
-            elif threeSum<2020:
+            elif three_sum<2020:
                 l+=1
             else:
                 return nums[i]*nums[l]*nums[r]
