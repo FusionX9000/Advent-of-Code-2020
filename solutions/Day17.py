@@ -5,13 +5,7 @@ from collections import defaultdict
 ACTIVE = "#"
 INACTIVE = "."
 
-
-def get_range(space):
-    res = list()
-    while space and isinstance(space, list):
-        res.append(len(space))
-        space = space[0]
-    return reversed(res)
+# The core helper functions are generalized for n dimensions.
 
 
 def neighbors(coord):
@@ -28,17 +22,24 @@ def play(active):
     inactive_map = defaultdict(int)
     next_active = set()
 
+    # For next round, only check if this cube will remain active
     for cube in active:
         count = 0
+        # While looping through neighboring cubes, two things are happening here in the same loop:
+        #   If neighbor is an active cube:
+        #       We increment the count of active neighbor for this cube
+        #   Else:
+        #       We increment the count of active neighbor for that neighboring inactive cube
         for nei in neighbors(cube):
             if nei in active:
                 count += 1
-
-            inactive_map[nei] += 1
+            else:
+                inactive_map[nei] += 1
 
         if 2 <= count <= 3:
             next_active.add(cube)
 
+    # Now add the remaining cubes, which will turn from inactive to active
     for cube, active_nei_count in inactive_map.items():
         if active_nei_count == 3:
             next_active.add(cube)
@@ -47,7 +48,7 @@ def play(active):
 
 
 def part1(grid):
-    X, Y = get_range(grid)
+    X, Y = len(grid[0]), len(grid)
 
     active = set()
 
@@ -62,13 +63,12 @@ def part1(grid):
 
 
 def part2(grid):
-    X, Y = get_range(grid)
-
+    X, Y = len(grid[0]), len(grid)
     active = set()
-
     for x in range(X):
         for y in range(Y):
             if grid[x][y] == ACTIVE:
+                # only difference b/w part 1 and 2 is here. We have added an extra dimension
                 active.add((x, y, 0, 0))
 
     for _ in range(6):
