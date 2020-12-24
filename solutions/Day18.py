@@ -66,4 +66,3 @@ if __name__ == "__main__":
         expressions = process_input(f)
     print("Part 1:", part1(expressions))
     print("Part 2:", part2(expressions))
-    # print(calculate("1+(2*3)+(4 * (5 + 6))".replace(' ', '')))
