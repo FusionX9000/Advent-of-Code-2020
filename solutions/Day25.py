@@ -17,7 +17,7 @@ SUBJECT_NUM = 7
 
 def part1(keys):
     pbk_a, pbk_b = keys
-    for k in range(2, MOD):
+    for k in range(2, 10**8):
         if pow(SUBJECT_NUM, k, MOD) == pbk_a:
             return pow(pbk_b, k, MOD)
 
