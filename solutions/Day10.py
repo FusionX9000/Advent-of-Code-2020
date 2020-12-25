@@ -1,4 +1,5 @@
 from collections import defaultdict
+from pathlib import Path
 
 
 def part1(nums):
@@ -30,7 +31,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day10.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         nums = process_input(f)
     print("Part 1:", part1(nums))
     print("Part 2:", part2(nums))

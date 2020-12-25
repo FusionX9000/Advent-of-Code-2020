@@ -1,8 +1,7 @@
 """
 Plenty of minor optimizations possible for this day's problem but asymptotically time complexity will remain O(N) 
 """
-
-from functools import reduce
+from pathlib import Path
 
 
 def two_sum(nums, target):
@@ -45,7 +44,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day9.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         nums = process_input(f)
     print("Part 1:", part1(nums))
     print("Part 2:", part2(nums))

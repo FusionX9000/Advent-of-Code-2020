@@ -1,4 +1,5 @@
 import math
+from pathlib import Path
 
 y = (1, 0, -1, 0)
 x = (0, 1, 0, -1)
@@ -57,7 +58,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day12.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         sequence = process_input(f)
     print("Part 1:", part1(sequence))
     print("Part 2:", part2(sequence))

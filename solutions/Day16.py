@@ -1,5 +1,6 @@
 import re
 from functools import reduce
+from pathlib import Path
 
 
 def in_range(rule, field):
@@ -116,7 +117,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day16.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         rules, ticket, nearby_tickets = process_input(f)
     print("Part 1:", part1(rules, ticket, nearby_tickets))
     # print("Part 2:", part2_dp(rules, ticket, nearby_tickets))

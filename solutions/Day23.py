@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from io import TextIOWrapper
-from typing import Optional
+from pathlib import Path
 
 
 @dataclass
@@ -85,8 +85,10 @@ def process_input(file: TextIOWrapper) -> list[int]:
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day23.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         labels = process_input(f)
-        # labels = [3, 8, 9, 1, 2, 5, 4, 6, 7]
     print("Part 1:", part1(labels))
     print("Part 2:", part2(labels))

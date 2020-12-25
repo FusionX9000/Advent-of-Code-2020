@@ -1,8 +1,9 @@
-from io import TextIOWrapper
-from typing import NamedTuple
-from functools import reduce
 import operator
 import re
+from functools import reduce
+from io import TextIOWrapper
+from pathlib import Path
+from typing import NamedTuple
 
 Food = NamedTuple(
     'Food', [('ingredients', list[str]), ('allergens', list[str])])
@@ -31,7 +32,7 @@ def part1(foods: list[Food]) -> int:
     # return sum(ingredient not in ingr_with_algn for food in foods for ingredient in food.ingredients)
 
 
-def part2(foods: list[Food]) -> int:
+def part2(foods: list[Food]) -> str:
     """An indexed priority queue will reduce time complexity from O(N^2) to O(NlogN)"""
     poss_allergen_map = ingredients_with_allergen(foods)
     allergen_map: dict[str, str] = dict()
@@ -62,7 +63,10 @@ def process_input(file: TextIOWrapper) -> list[Food]:
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day21.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         foods = process_input(f)
     print("Part 1:", part1(foods))
     print("Part 2:", part2(foods))

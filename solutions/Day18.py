@@ -7,6 +7,8 @@ from functools import reduce
 # * Recursive function
 # * CFG with some parser
 # Here we only use a stack
+from pathlib import Path
+
 
 def calculate(expression, precedence=None):
     operator = {'+': lambda a, b: a+b,
@@ -62,7 +64,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day18.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         expressions = process_input(f)
     print("Part 1:", part1(expressions))
     print("Part 2:", part2(expressions))

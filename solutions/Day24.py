@@ -1,5 +1,6 @@
 from collections import defaultdict
 from io import TextIOWrapper
+from pathlib import Path
 
 step = {
     'w': lambda x, y: (x-2, y),
@@ -68,7 +69,10 @@ def process_input(file: TextIOWrapper) -> list[list[str]]:
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day24.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         instructions = process_input(f)
     print("Part 1:", part1(instructions))
     print("Part 2:", part2(instructions))

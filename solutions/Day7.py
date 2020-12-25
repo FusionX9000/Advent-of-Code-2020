@@ -1,5 +1,6 @@
-from collections import namedtuple, deque, defaultdict
 import re
+from collections import deque, defaultdict
+from pathlib import Path
 
 
 def part1(parents):
@@ -45,7 +46,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day7.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         parents, rules = process_input(f)
     print("Part 1:", part1(parents))
     print("Part 2:", part2(rules))

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 MOD = 20201227
 SUBJECT_NUM = 7
 # unnecessary since there's already a faster builtin C implementation in CPython.
@@ -27,6 +29,9 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day25.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         keys = process_input(f)
     print("Part 1:", part1(keys))

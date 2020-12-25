@@ -1,4 +1,5 @@
 from functools import reduce
+from pathlib import Path
 
 
 def part1(start, ids):
@@ -39,7 +40,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day13.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         start, ids = process_input(f)
     print("Part 1:", part1(start, ids))
     print("Part 2:", part2(ids))

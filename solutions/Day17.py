@@ -1,6 +1,6 @@
-from copy import deepcopy
-from itertools import product
 from collections import defaultdict
+from itertools import product
+from pathlib import Path
 
 ACTIVE = "#"
 INACTIVE = "."
@@ -81,7 +81,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day17.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         grid = process_input(f)
     print("Part 1:", part1(grid))
     print("Part 2:", part2(grid))

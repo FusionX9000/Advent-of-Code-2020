@@ -1,7 +1,5 @@
-import regex
-import sys
 from collections import namedtuple
-import re
+from pathlib import Path
 
 # We've been given a grammar and have to check if a message belongs to the grammar.
 # Solution specific to input constraints only
@@ -73,7 +71,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day19.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         rules, messages = process_input(f)
     print("Part 1:", part1(rules, messages))
     print("Part 2:", part2(rules, messages))

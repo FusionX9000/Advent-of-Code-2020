@@ -1,13 +1,13 @@
-from collections import defaultdict, deque
-from pprint import pprint
+from collections import defaultdict
 from copy import deepcopy
 from enum import Enum, auto
-from dataclasses import dataclass
+
 
 # Lots of scope for improvement in terms of:
 # 1. Time complexity - from O(N^2) to O(N) where N is number of tiles
 # 2. Object oriented code - this is a great exercise for implementing OOPS principles
 # Right now, the code is pretty..sphagetti. Plan to revisit this problem some day and improve the code.
+from pathlib import Path
 
 
 class Side(Enum):
@@ -217,7 +217,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day20.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         tiles = process_input(f)
     print("Part 1:", part1(tiles))
 

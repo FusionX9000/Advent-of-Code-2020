@@ -1,4 +1,5 @@
-from collections import defaultdict, deque
+from collections import deque
+from pathlib import Path
 
 
 def part1(player1, player2):
@@ -65,7 +66,10 @@ def process_input(file):
 
 
 if __name__ == "__main__":
-    with open('../inputs/Day22.txt', 'r') as f:
+    script_path = Path(__file__).resolve()
+    input_path = script_path.parent / '../inputs' / f'{script_path.stem}.txt'
+
+    with input_path.open('r') as f:
         player1, player2 = process_input(f)
     print("Part 1:", part1(player1, player2))
     print("Part 2:", part2(player1, player2))
