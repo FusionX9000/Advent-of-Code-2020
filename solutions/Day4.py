@@ -8,9 +8,9 @@ rules = {
     'iyr': lambda x: 2010 <= int(x) <= 2020,
     'eyr': lambda x: 2020 <= int(x) <= 2030,
     'hgt': lambda x: (x.endswith('cm') and 150 <= int(x[:-2] or 0) <= 193) or (x.endswith('in') and 59 <= int(x[:-2] or 0) <= 76),
-    'hcl': lambda x: re.match(r'#[\da-f]{6}$', x) != None,
+    'hcl': lambda x: re.match(r'#[\da-f]{6}$', x) is not None,
     'ecl': lambda x: x in ('amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'),
-    'pid': lambda x: re.match(r'\d{9}$', x) != None,
+    'pid': lambda x: re.match(r'\d{9}$', x) is not None,
     'cid': lambda x: True,
 }
 

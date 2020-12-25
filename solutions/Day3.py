@@ -7,7 +7,7 @@ def traverse_grid(grid, slope):
     dx, dy = slope
     end = len(grid)
     ans = 0
-    while(y < end):
+    while y < end:
         ans += 1 if grid[y][x] == '#' else 0
         x = (x+dx) % len(grid[0])
         y += dy

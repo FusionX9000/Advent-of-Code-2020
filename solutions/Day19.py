@@ -43,7 +43,7 @@ def check(message):
     return any(idx == len(message) for idx in permute(0, message, 0))
 
 
-def part1(rules, messages):
+def part1(messages):
     """ 
     permute function does not really need DP or building an index array for part 1.
     But using a generalized approach makes for an easier time solving part 2.
@@ -76,5 +76,5 @@ if __name__ == "__main__":
 
     with input_path.open('r') as f:
         rules, messages = process_input(f)
-    print("Part 1:", part1(rules, messages))
+    print("Part 1:", part1(messages))
     print("Part 2:", part2(rules, messages))

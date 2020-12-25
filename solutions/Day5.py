@@ -5,7 +5,7 @@ def decode(code):
     l, r = 0, (1 << len(code))-1
     for ch in code:
         mid = l + (r-l)//2
-        if(ch == '0'):
+        if ch == '0':
             r = mid
         else:
             l = mid+1

@@ -31,8 +31,8 @@ def part2(sequence):
     def rotate(point, angle):
         angle = math.radians(angle)
         (px, py) = point
-        px_ = (px)*math.cos(angle) - (py)*math.sin(angle)
-        py_ = (py)*math.cos(angle) + (px)*math.sin(angle)
+        px_ = px * math.cos(angle) - py * math.sin(angle)
+        py_ = py * math.cos(angle) + px * math.sin(angle)
         return round(px_), round(py_)
 
     cx = cy = 0

@@ -2,7 +2,6 @@ from collections import defaultdict
 from copy import deepcopy
 from enum import Enum, auto
 
-
 # Lots of scope for improvement in terms of:
 # 1. Time complexity - from O(N^2) to O(N) where N is number of tiles
 # 2. Object oriented code - this is a great exercise for implementing OOPS principles
@@ -22,14 +21,14 @@ class Side(Enum):
             return 1
         elif side1 == Side.LEFT and side2 == Side.TOP:
             return -1
-        return side1.value-side2.value
+        return side1.value - side2.value
 
     def compare_to(self, side2):
         return Side.compare(self, side2)
 
     def inverse(self):
         total = len(Side)
-        return Side(((self.value-1+total//2) % total)+1)
+        return Side(((self.value - 1 + total // 2) % total) + 1)
 
 
 def get_sides(tile: list[list[str]]) -> tuple['Side', str]:
@@ -39,13 +38,13 @@ def get_sides(tile: list[list[str]]) -> tuple['Side', str]:
 
 def flip(tile: list[list[str]], side: Side) -> list[list[str]]:
     R, C = len(tile), len(tile[0])
-    grid = [[None for c in range(C)] for r in range(R)]
+    grid = [[str() for _ in range(C)] for _ in range(R)]
     for r in range(R):
         for c in range(C):
             if side in (Side.TOP, Side.BOTTOM):
-                grid[r][c] = tile[r][C-c-1]
+                grid[r][c] = tile[r][C - c - 1]
             if side in (Side.RIGHT, Side.LEFT):
-                grid[r][c] = tile[R-r-1][c]
+                grid[r][c] = tile[R - r - 1][c]
     return grid
 
 
@@ -54,22 +53,22 @@ def rotate_side(tile: list[list[str]], from_: Side, to: Side) -> list[list[str]]
         return tile
 
     R, C = len(tile), len(tile[0])
-    grid = [[None for c in range(C)] for r in range(R)]
+    grid = [[str() for _ in range(C)] for _ in range(R)]
 
     diff = from_.compare_to(to)
 
     for r in range(R):
         for c in range(C):
             if abs(diff) == 2:
-                grid[r][c] = tile[R-r-1][C-c-1]
+                grid[r][c] = tile[R - r - 1][C - c - 1]
             elif diff < 0:
-                grid[r][c] = tile[C-c-1][r]
+                grid[r][c] = tile[C - c - 1][r]
             elif diff > 0:
-                grid[r][c] = tile[c][R-r-1]
+                grid[r][c] = tile[c][R - r - 1]
     return grid
 
 
-def get_side(tile: list[list[str]], side: Side) -> Side:
+def get_side(tile: list[list[str]], side: Side) -> str:
     if side == Side.TOP:
         return "".join(tile[0])
     if side == Side.BOTTOM:
@@ -80,7 +79,8 @@ def get_side(tile: list[list[str]], side: Side) -> Side:
         return "".join([t[-1] for t in tile])
 
 
-def dfs(tileid_1: str, tiles: dict[int, list[list[str]]], graph: defaultdict[int, dict[str, list[int]]], visited: set[str]) -> None:
+def dfs(tileid_1: int, tiles: dict[int, list[list[str]]], graph: defaultdict[int, dict[int, int]],
+        visited: set[int]) -> None:
     if tileid_1 in visited:
         return
     visited.add(tileid_1)
@@ -111,12 +111,12 @@ def sort_tiles(tiles: dict[int, list[list[str]]]) -> list[list[int]]:
     dfs(list(tiles.keys())[0], tiles, graph, set())
 
     topleft = [tileid for tileid,
-               val in graph.items() if (Side.LEFT not in val and Side.TOP not in val)][0]
+                          val in graph.items() if (Side.LEFT not in val and Side.TOP not in val)][0]
 
     order = []
     row_start = topleft
 
-    while row_start != None:
+    while row_start is not None:
         order.append(list())
         order[-1].append(row_start)
 
@@ -132,11 +132,10 @@ def sort_tiles(tiles: dict[int, list[list[str]]]) -> list[list[int]]:
 
 def part1(tiles: dict[int, list[list[str]]]) -> int:
     order = sort_tiles(tiles)
-    return order[0][0]*order[0][-1]*order[-1][0]*order[-1][-1]
+    return order[0][0] * order[0][-1] * order[-1][0] * order[-1][-1]
 
 
 def part2(tiles: dict[int, list[list[str]]], dragon: list[list[str]]) -> int:
-
     def remove_sides(tile: list[list[str]]) -> None:
         tile.pop(0)
         tile.pop(-1)
@@ -149,16 +148,16 @@ def part2(tiles: dict[int, list[list[str]]], dragon: list[list[str]]) -> int:
         grid = deepcopy(image)
         for _ in range(4):
 
-            ngrid = [[None for c in range(C)] for r in range(R)]
+            ngrid = [[str() for _ in range(C)] for _ in range(R)]
             for r in range(R):
                 for c in range(C):
-                    ngrid[r][c] = grid[c][R-r-1]
+                    ngrid[r][c] = grid[c][R - r - 1]
             yield ngrid
 
-            fgrid = [[None for c in range(C)] for r in range(R)]
+            fgrid = [[str() for _ in range(C)] for _ in range(R)]
             for r in range(R):
                 for c in range(C):
-                    fgrid[r][c] = ngrid[r][C-c-1]
+                    fgrid[r][c] = ngrid[r][C - c - 1]
             yield fgrid
             grid = ngrid
 
@@ -169,38 +168,38 @@ def part2(tiles: dict[int, list[list[str]]], dragon: list[list[str]]) -> int:
         for tile in row:
             remove_sides(tile)
 
+    image = list()
     for i, row in enumerate(raw_image):
         tile_height = len(row[0])
-        nrow = [list() for i in range(tile_height)]
+        nrow: list[list[str]] = [list() for i in range(tile_height)]
         for tile_row_idx in range(tile_height):
             for tile in row:
                 nrow[tile_row_idx].extend(tile[tile_row_idx])
-        raw_image[i] = nrow
+        # raw_image[i] = nrow
+        image.extend(nrow)
 
-    image = list()
-    for row in raw_image:
-        image.extend(row)
+    # for row in raw_image:
 
     R, C = len(image), len(image[0])
     DR, DC = len(dragon), len(dragon[0])
 
-    def match(x, y, image, dragon):
+    def match(x: int, y: int, image: list[list[str]], dragon: list[list[str]]):
         for tx in range(DC):
             for ty in range(DR):
-                if dragon[ty][tx] == "#" and image[ty+y][tx+x] != "#":
+                if dragon[ty][tx] == "#" and image[ty + y][tx + x] != "#":
                     return False
         return True
 
     for ximage in permutations(image):
         found = False
-        for x in range(0, C-DC+1):
-            for y in range(0, R-DR+1):
+        for x in range(0, C - DC + 1):
+            for y in range(0, R - DR + 1):
                 if match(x, y, ximage, dragon):
                     found = True
                     for tx in range(DC):
                         for ty in range(DR):
                             if dragon[ty][tx] == "#":
-                                ximage[ty+y][tx+x] = 'X'
+                                ximage[ty + y][tx + x] = 'X'
         if found:
             return sum(sum(char == '#' for char in row) for row in ximage)
 

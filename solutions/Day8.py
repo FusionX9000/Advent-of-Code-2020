@@ -7,7 +7,7 @@ def part1(instructions):
     line = 0
     value = 0
 
-    while(line < len(instructions) and not visited[line]):
+    while line < len(instructions) and not visited[line]:
         visited[line] = True
         opn, arg = instructions[line]
         if opn == 'acc':
@@ -38,15 +38,15 @@ def part2_optimized(instructions):
         opn, arg = instructions[line]
 
         if opn == 'acc':
-            if (next := f(line+1, flip)) != None:
-                res = next+arg
+            if (next_ := f(line + 1, flip)) is not None:
+                res = next_ + arg
         elif opn == 'jmp':
             res = f(line+arg, flip)
-            if res == None and not flip:
+            if res is None and not flip:
                 res = f(line+1, True)
         else:  # nop
             res = f(line+1, flip)
-            if res == None and not flip:
+            if res is None and not flip:
                 res = f(line+arg, True)
         return res
     return f(0, False)
@@ -61,7 +61,7 @@ def part2(instructions):
         line = 0
         value = 0
 
-        while(line < len(instructions)):
+        while line < len(instructions):
             if visited[line]:
                 return False
             visited[line] = True

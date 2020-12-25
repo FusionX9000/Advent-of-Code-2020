@@ -11,10 +11,10 @@ def part1(nums):
     prev = nums[-1]
 
     for i in range(len(nums), 2020):
-        next = 0
+        next_ = 0
         if prev in index:
-            next = (i-1)-index[prev]
-        index[prev], prev = i-1, next
+            next_ = (i - 1) - index[prev]
+        index[prev], prev = i - 1, next_
 
     return prev
 
@@ -29,10 +29,10 @@ def part2(nums):
     prev = nums[-1]
 
     for i in range(len(nums), 30000000):
-        next = 0
+        next_ = 0
         if prev in index:
-            next = (i-1)-index[prev]
-        index[prev], prev = i-1, next
+            next_ = (i - 1) - index[prev]
+        index[prev], prev = i - 1, next_
 
     return prev
 

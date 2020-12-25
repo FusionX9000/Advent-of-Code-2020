@@ -16,7 +16,7 @@ def is_valid_field(rules, field):
     return False
 
 
-def part1(rules, ticket, nearby_tickets):
+def part1(rules, nearby_tickets):
     res = 0
     for ticket in nearby_tickets:
         for field in ticket:
@@ -34,7 +34,7 @@ def part2_dp(rules, ticket, nearby_tickets):
         nticket for nticket in nearby_tickets if not any(not is_valid_field(rules, field) for field in nticket)]
 
     # Save computation inside DP by caching the rules valid for each ticket field
-    valid_rules = [list() for i in range(fields_count)]
+    valid_rules = [list() for _ in range(fields_count)]
     for index in range(fields_count):
         for i, rule in enumerate(rules):
             if all(in_range(rule, nticket[index]) for nticket in nearby_tickets):
@@ -79,7 +79,7 @@ def part2_greedy(rules, ticket, nearby_tickets):
     nearby_tickets = [
         nticket for nticket in nearby_tickets if not any(not is_valid_field(rules, field) for field in nticket)]
 
-    valid_rules = [list(range(len(rules))) for i in range(len(rules))]
+    valid_rules = [list(range(len(rules))) for _ in range(len(rules))]
 
     for nticket in nearby_tickets:
         for index, field in enumerate(nticket):
@@ -89,7 +89,7 @@ def part2_greedy(rules, ticket, nearby_tickets):
                     next_valid_rules.append(ir)
             valid_rules[index] = next_valid_rules
 
-    used = [False for i in range(len(rules))]
+    used = [False for _ in range(len(rules))]
     ans = 1
 
     for i, rules_list in sorted(enumerate(valid_rules), key=lambda x: len(x[1])):
@@ -122,6 +122,5 @@ if __name__ == "__main__":
 
     with input_path.open('r') as f:
         rules, ticket, nearby_tickets = process_input(f)
-    print("Part 1:", part1(rules, ticket, nearby_tickets))
-    # print("Part 2:", part2_dp(rules, ticket, nearby_tickets))
+    print("Part 1:", part1(rules, nearby_tickets))
     print("Part 2:", part2_greedy(rules, ticket, nearby_tickets))

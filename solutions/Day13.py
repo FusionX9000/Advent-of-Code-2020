@@ -7,7 +7,7 @@ def part1(start, ids):
     res_id = min_time = None
     for _, id_ in enumerate(ids):
         wait_time = id_ - (start % id_)
-        if min_time == None or wait_time < min_time:
+        if min_time is None or wait_time < min_time:
             res_id, min_time = id_, wait_time
     return res_id*min_time
 

@@ -32,8 +32,8 @@ def part2(nums):
 
     for r, num in enumerate(nums):
         running_sum += num
-        if (sum := running_sum-target) in prefix_sum:
-            l = prefix_sum[sum]+1
+        if (sum_ := running_sum - target) in prefix_sum:
+            l = prefix_sum[sum_] + 1
             break
         prefix_sum[running_sum] = r
     return min(nums[l:r+1]) + max(nums[l:r+1])

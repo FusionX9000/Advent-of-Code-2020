@@ -19,7 +19,7 @@ def part2(nums):
 
     for i in reversed(range(N)):
         for j in range(i+1, N):
-            if(nums[j]-nums[i] > 3):
+            if nums[j]-nums[i] > 3:
                 break
             dp[i] += dp[j]
 

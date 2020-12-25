@@ -38,7 +38,7 @@ def adj2(grid, row, col):
 def part1(grid):
     N, M = len(grid), len(grid[0])
     changed = True
-    while(changed):
+    while changed:
         aux_grid = deepcopy(grid)
         changed = False
         for row in range(N):
@@ -59,7 +59,7 @@ def part1(grid):
 def part2(grid):
     N, M = len(grid), len(grid[0])
     changed = True
-    while(changed):
+    while changed:
         aux_grid = deepcopy(grid)
         changed = False
         for row in range(N):

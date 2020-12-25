@@ -14,7 +14,7 @@ def calculate(expression, precedence=None):
     operator = {'+': lambda a, b: a+b,
                 '*': lambda a, b: a*b}
 
-    if precedence == None:
+    if precedence is None:
         precedence = {'+': 1, '*': 1, '(': 0}
 
     i = 0

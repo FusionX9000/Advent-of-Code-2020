@@ -9,7 +9,7 @@ def part1(pass_policies):
         for char in password:
             if char == policy.char:
                 count += 1
-                if(count > policy.maxCount):
+                if count > policy.maxCount:
                     return False
         return count >= policy.minCount
 
@@ -17,8 +17,8 @@ def part1(pass_policies):
     Policy = namedtuple('Policy', ['minCount', 'maxCount', 'char'])
 
     for password, policy_tuple in pass_policies:
-        minCount, maxCount, char = policy_tuple
-        policy = Policy(minCount, maxCount, char)
+        min_count, max_count, char = policy_tuple
+        policy = Policy(min_count, max_count, char)
         if is_valid(password, policy):
             ans += 1
     return ans
@@ -26,7 +26,7 @@ def part1(pass_policies):
 
 def part2(pass_policies):
     def is_valid(password, policy):
-        return (password[pos1-1] == policy.char) ^ (password[pos2-1] == policy.char)
+        return (password[pos1 - 1] == policy.char) ^ (password[pos2 - 1] == policy.char)
 
     ans = 0
     Policy = namedtuple('Policy', ['pos1', 'pos2', 'char'])
