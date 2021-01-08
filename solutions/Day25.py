@@ -2,26 +2,27 @@ from pathlib import Path
 
 MOD = 20201227
 SUBJECT_NUM = 7
-# unnecessary since there's already a faster builtin C implementation in CPython.
-
-# def mod_pow(x, n, mod):
-#     if mod == 1:
-#         return 0
-#     res = 1
-#     x = x % MOD
-#     while(n > 0):
-#         if (n % 2) & 1:
-#             res = (x*res) % MOD
-#         x = (x*x) % MOD
-#         n >>= 1
-#     return res
 
 
 def part1(keys):
+    def transform(subject_num):
+        key = 1
+        while True:
+            key = (key*subject_num) % MOD
+            yield key
+
     pbk_a, pbk_b = keys
-    for k in range(2, 10**8):
-        if pow(SUBJECT_NUM, k, MOD) == pbk_a:
-            return pow(pbk_b, k, MOD)
+    prk_a = enc_key = 1
+
+    gen = transform(7)
+    while pbk_a != next(gen):
+        prk_a += 1
+
+    gen = transform(pbk_b)
+    for _ in range(prk_a):
+        enc_key = next(gen)
+
+    return enc_key
 
 
 def process_input(file):
